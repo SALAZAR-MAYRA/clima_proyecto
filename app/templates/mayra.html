@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clima - Mayra Salazar</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #b281e7, #b281e7);
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            width: 80%;
+            max-width: 400px;
+            margin: auto;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card-content {
+            text-align: left;
+        }
+        .card img {
+            width: 200px;
+            height: 200px;
+        }
+        input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        button {
+            background: #ff5722;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #e64a19;
+        }
+        h1 {
+            font-size: 2rem;
+        }
+        footer {
+            padding: 15px;
+            text-align: center;
+            color: white;
+            font-size: 0.9rem;
+            background: none; /* Sin color de fondo */
+        }
+        .btn-container {
+            margin-top: 10px;
+            text-align: center;
+        }
+        .btn {
+            background-color: #6a11cb;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background-color: #5a0fbf;
+        }
+    </style>
+</head>
+<body>
+    <h1>Consulta el Clima</h1>
+    <form method="POST">
+        <input type="text" name="city" placeholder="Escribe el nombre de la ciudad" required>
+        <button type="submit">Consultar</button>
+    </form>
+
+    {% if data %}
+    <div class="card">
+        <div class="card-content">
+            <h2>{{ data.name }}</h2>
+            <p><strong>Descripción:</strong> {{ data.weather[0].description }}</p>
+            <p><strong>Temperatura:</strong> {{ data.main.temp }}°C</p>
+            <p><strong>Humedad:</strong> {{ data.main.humidity }}%</p>
+            <p><strong>Presión:</strong> {{ data.main.pressure }} hPa</p>
+            <p><strong>Latitud:</strong> {{ data.coord.lat }}</p>
+            <p><strong>Longitud:</strong> {{ data.coord.lon }}</p>
+        </div>
+        <img src="http://openweathermap.org/img/wn/{{ data.weather[0].icon }}@2x.png" alt="Clima">
+    </div>
+    {% elif error %}
+    <p>{{ error }}</p>
+    {% endif %}
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© Mayra Salazar 2024</p>
+    </footer>
+
+    <!-- Botón para redirigir a la Hoja de Vida -->
+    <div class="btn-container">
+        <a href="/cv" class="btn">
+            <i class="bi bi-file-person" style="margin-right: 8px;"></i> Ver Hoja de Vida
+        </a>
+    </div>
+    
+</body>
+</html>
